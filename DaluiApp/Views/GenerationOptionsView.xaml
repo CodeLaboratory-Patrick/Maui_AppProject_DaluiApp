@@ -37,6 +37,46 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        
+        <Label Grid.Row="2"
+               FontFamily="NexaHeavy"
+               FontSize="20"
+               Text="Choose a style of picture"
+               TextColor="White"
+               VerticalOptions="Center" /> 
+        
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding Styles}"
+                        SelectionMode="Single">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Border StrokeShape="RoundRectangle 20,20,20,20"
+                                StrokeThickness="0">
+                            <Image Source="{Binding ImageUrl}" />
+                        </Border>
+                        <Label Margin="0,0,0,10"
+                               FontSize="15"
+                               FontFamily="NexaHeavy"
+                               HorizontalTextAlignment="Center"
+                               Text="{Binding Name}"
+                               TextColor="White"
+                               VerticalOptions="End">
+                            <Label.Shadow>
+                                <Shadow Brush="Black"
+                                        Opacity="1"
+                                        Radius="1"
+                                        Offset="5,5" />
+                            </Label.Shadow>
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
                     
     </Grid>
 </ContentPage>
