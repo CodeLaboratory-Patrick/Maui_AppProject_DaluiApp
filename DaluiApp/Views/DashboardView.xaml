@@ -4,9 +4,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
              xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="DaluiApp.Views.DashboardView"
              Title="DashboardView"
              BackgroundColor="#101216">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:ListToStringConverter x:Key="ListToStringConverter" Separator="," />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid Margin="25,25,0,0" RowDefinitions=".1*, .2*, .15*, .45*, .1*">
         <Grid Margin="0, 0, 25, 0" ColumnDefinitions="*,*">
@@ -89,5 +96,41 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <cards:CoverFlowView Grid.Row="3"
+                             Margin="-25,0,25,0"
+                             ItemsSource="{Binding GeneratedImages}"
+                             PositionShiftValue="125">
+            <x:Arguments>
+                <proc:CoverFlowProcessor OpacityFactor="0.25" ScaleFactor="0.75" />
+            </x:Arguments>
+            
+            <cards:CoverFlowView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 25,25,25,25"
+                            StrokeThickness="0">
+                        <Grid RowDefinitions=".7*, .3*">
+                            <Image Grid.RowSpan="2"
+                                   Aspect="AspectFill"
+                                   Source="{Binding ImagePath}" />
+                            <Grid Grid.Row="1">
+                                <Rectangle Fill="Black"
+                                           Opacity=".5"
+                                           StrokeThickness="0" />
+                                <VerticalStackLayout Margin="10,0,0,0"
+                                                     VerticalOptions="Center">
+                                    <Label FontFamily="NexaHeavy" FontSize="25"
+                                           Text="{Binding MainKeyword}"
+                                           TextColor="White" />
+                                    <Label FontFamily="NexaExtraLight"
+                                           FontSize="15"
+                                           Text="{Binding Keywords, Converter={StaticResource ListToStringConverter}}"
+                                           TextColor="White" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </cards:CoverFlowView.ItemTemplate>
+        </cards:CoverFlowView>
     </Grid>
 </ContentPage>
