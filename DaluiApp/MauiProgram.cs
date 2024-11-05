@@ -13,6 +13,8 @@ namespace DaluiApp
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Nexa-ExtraLight.ttf", "NexaExtraLight");
+                    fonts.AddFont("Nexa-Heavy.ttf", "NexaHeavy");
                 });
 
 #if DEBUG
