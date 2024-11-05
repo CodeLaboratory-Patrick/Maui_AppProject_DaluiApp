@@ -17,5 +17,26 @@
                    Text="Minimum of 6 options"
                    TextColor="#ACB1BB" />
         </VerticalStackLayout>
+        
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Options}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10"
+                                   Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HeightRequest="50"
+                          WidthRequest="150">
+                        <RoundRectangle CornerRadius="35" Fill="#242529" />
+                        <Label HorizontalOptions="Center"
+                               Text="{Binding .}"
+                               TextColor="White"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+                    
     </Grid>
 </ContentPage>
