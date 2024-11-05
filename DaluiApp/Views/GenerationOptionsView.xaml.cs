@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DaluiApp.Models;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 
 namespace DaluiApp.Views;
 
@@ -16,6 +17,18 @@ public partial class GenerationOptionsView : ContentPage
         InitializeComponent();
         FillOptions();
         BindingContext = this;
+        
+        Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("MyCustomization", (handler, view) =>
+        {
+#if ANDROID
+
+            handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+#elif IOS || MACCATALYST
+         
+#elif WINDOWS
+
+#endif
+        });
     }
 
     private void FillOptions()
