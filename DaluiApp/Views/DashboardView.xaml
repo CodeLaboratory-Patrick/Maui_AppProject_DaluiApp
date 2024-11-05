@@ -132,5 +132,17 @@
                 </DataTemplate>
             </cards:CoverFlowView.ItemTemplate>
         </cards:CoverFlowView>
+        
+        <Border Grid.Row="4"
+                Margin="0,15,0,0"
+                HorizontalOptions="End"
+                StrokeShape="RoundRectangle 55,0,0,0"
+                WidthRequest="250">
+            <Button BackgroundColor="#E8FF8E"
+                    FontFamily="NexaHeavy"
+                    FontSize="16"
+                    Text="Create new Image"
+                    TextColor="#101216" />
+        </Border>   
     </Grid>
 </ContentPage>
