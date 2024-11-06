@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using PanCardView;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace DaluiApp
 {
@@ -13,6 +14,7 @@ namespace DaluiApp
                 .UseMauiApp<App>()
                 .UseCardsView()
                 .UseMauiCommunityToolkit()
+                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
