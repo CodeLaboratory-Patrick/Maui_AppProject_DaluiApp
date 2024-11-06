@@ -8,7 +8,7 @@ namespace DaluiApp
         {
             InitializeComponent();
 
-            MainPage = new GenerationOptionsView();
+            MainPage = new ImageGeneratorView();
         }
     }
 }
