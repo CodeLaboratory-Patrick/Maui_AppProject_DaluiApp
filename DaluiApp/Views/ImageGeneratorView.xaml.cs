@@ -12,4 +12,16 @@ public partial class ImageGeneratorView : ContentPage
     {
         InitializeComponent();
     }
+
+    private void BtnFinish_OnClicked(object? sender, EventArgs e)
+    {
+        StopGeneration();
+    }
+
+    private void StopGeneration()
+    {
+        lottie.IsAnimationEnabled = false;
+        lottie.IsVisible = false;
+        imageBorder.IsVisible = true;
+    }
 }
