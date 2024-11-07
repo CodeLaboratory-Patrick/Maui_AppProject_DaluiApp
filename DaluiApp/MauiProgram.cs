@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using PanCardView;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using Xe.AcrylicView;
 
 namespace DaluiApp
 {
@@ -12,6 +13,7 @@ namespace DaluiApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseAcrylicView()
                 .UseCardsView()
                 .UseMauiCommunityToolkit()
                 .UseSkiaSharp()
