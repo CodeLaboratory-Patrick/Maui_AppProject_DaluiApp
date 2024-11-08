@@ -53,7 +53,7 @@
                 IsVisible="False"
                 BackgroundColor="#E8FF8E"
                 Opacity=".9"
-                StrokeThickness="0"> />
+                StrokeThickness="0">
         </Border>
         <skia:SKLottieView 
             x:Name="lottie"
