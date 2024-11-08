@@ -41,7 +41,8 @@
 ```markdown
 Required Tools:
 - Visual Studio 2022
-- .NET 6.0 or later
+- JetBrains Rider
+- .NET 7.0 or later
 - MAUI Workload
 - Android/iOS SDKs (for mobile development)
 ```
