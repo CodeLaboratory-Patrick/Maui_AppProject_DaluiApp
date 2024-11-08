@@ -1,6 +1,6 @@
 # .NET MAUI Application Analysis - Dalui Image Generation App
 
-## Overview
+## 📱 Overview
 1. **GenerationOptionsView**:
 
 ![GenerationOptionsView](https://github.com/user-attachments/assets/faf3dc16-9bb3-4814-929b-816419526546)
@@ -22,7 +22,7 @@
 ![ImageGeneratorView3](https://github.com/user-attachments/assets/59047add-dd9c-44a7-b149-a077525d5112)
 
 ---
-## Core Components - Project Structure
+## 📂 Core Components - Project Structure
 ```markdown
 - DaluiApp/
   ├── MauiProgram.cs
@@ -36,7 +36,7 @@
       └── ImageGeneratorView.xaml/.cs
 ```
 ---
-## Development Environment Setup
+## 🛠 Development Environment Setup
 
 ```markdown
 Required Tools:
@@ -46,3 +46,12 @@ Required Tools:
 - MAUI Workload
 - Android/iOS SDKs (for mobile development)
 ```
+---
+## 📝 Nuget Package
+```markdown
+- AcrylicView.Maui
+- CardsView.Maui
+- SkiaSharp.Extended.UI.Maui
+```
+---
+# ⭐️ Analysis of **
