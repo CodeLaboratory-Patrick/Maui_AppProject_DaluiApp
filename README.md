@@ -459,4 +459,203 @@ The `GenerationOptionsView` is a rich UI page for selecting image generation opt
 1. [Introduction to XAML - Microsoft Documentation](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/xaml/?view=netdesktop-7.0)
 2. [CollectionView in .NET MAUI - Microsoft Documentation](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/collectionview?view=net-maui-7.0)
 3. [Grid Layout in XAML - Microsoft Documentation](https://learn.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/grid)
+
 ---
+# ⭐️ MVVM View Analysis: ImageGeneratorView.xaml and ImageGeneratorView.xaml.cs
+
+In this analysis, we will look into the **`ImageGeneratorView.xaml`** and **`ImageGeneratorView.xaml.cs`** files, both of which belong to the **View** layer of an MVVM application. This View seems to be focused on generating images, including UI elements for timers and completion animations. We will go through the purpose, characteristics, and properties of these files, and provide examples of how they are implemented.
+
+### Analysis of ImageGeneratorView.xaml
+
+The **`ImageGeneratorView.xaml`** defines the structure of the UI in XML format using **XAML**. Below, we'll look at its components and examine the properties and controls used.
+
+#### XAML Content Overview
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             x:Class="DaluiApp.Views.ImageGeneratorView"
+             Title="ImageGeneratorView"
+             BackgroundColor="#101216">
+    
+    <Grid Margin="25,25,0,0" RowDefinitions=".2*,.6*,.2*">
+        <VerticalStackLayout VerticalOptions="Center">
+            <Label FontFamily="NexaHeavy"
+                   FontSize="30"
+                   Text="Picture&#10;generated"
+                   TextColor="White" />
+            <HorizontalStackLayout Margin="0,10,0,0">
+                <Label FontSize="20"
+                       Text="Time spent "
+                       TextColor="#ACB1BB"
+                       VerticalOptions="Center" />
+                <Grid>
+                    <Border x:Name="borderTime"
+                            Grid.Row="1"
+                            BackgroundColor="#E8FF8E"
+                            IsVisible="True"
+                            Opacity="0"
+                            Scale="1.1"
+                            StrokeShape="RoundRectangle 5,5,5,5"
+                            StrokeThickness="0" />
+                    <Label x:Name="lblTimer"
+                           FontSize="20"
+                           Text="0"
+                           TextColor="#ACB1BB"
+                           VerticalOptions="Center" />
+                </Grid>
+                <Label FontSize="20"
+                       Text=" Seconds"
+                       TextColor="#ACB1BB"
+                       VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        
+        <Border x:Name="imageBorder"
+                Grid.Row="1"
+                StrokeShape="RoundRectangle 20,20,20,20"
+                StrokeThickness="1"
+                IsVisible="False">
+            <Image x:Name="imageAnimation"
+                   Aspect="AspectFill"
+                   HeightRequest="200"
+                   WidthRequest="200"
+                   IsVisible="False" />
+        </Border>
+        
+        <Button x:Name="btnFinish"
+                Grid.Row="2"
+                BackgroundColor="#E8FF8E"
+                CornerRadius="20"
+                FontFamily="NexaHeavy"
+                FontSize="20"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                Text="Finish"
+                TextColor="#101216"
+                VerticalOptions="Center"
+                WidthRequest="250" />
+    </Grid>
+</ContentPage>
+```
+
+#### Important XAML Properties Explained
+- **`Grid` Layout**: The `Grid` layout is used to organize child elements in rows and columns, allowing for complex UI organization.
+  - **`RowDefinitions=".2*, .6*, .2*"`**: This creates a layout that divides the space into three rows with different height ratios. The middle row (`.6*`) takes up the largest space, suitable for displaying content like the image.
+
+- **`VerticalStackLayout` and `HorizontalStackLayout`**:
+  - **`VerticalStackLayout`**: Aligns child elements vertically, used here to display the labels for the title and timer.
+  - **`HorizontalStackLayout`**: Arranges elements in a horizontal line. In this layout, it displays the timer components.
+
+- **`Label` Properties**:
+  - **`FontFamily="NexaHeavy"`**: This defines a custom font for the label text, giving it a bold and stylized appearance.
+  - **`TextColor`**: Specifies the color of the label text, for example, `#ACB1BB` to provide a softer, contrasting color for the timer.
+
+- **`Border` and `Image`**:
+  - **`Border`**: Creates a rounded frame around the image. This gives the UI a neat, modern look.
+  - **`StrokeShape="RoundRectangle 20,20,20,20"`**: Creates a rounded rectangle around the image container, giving it a softer appearance.
+  - **`Image` Properties**: 
+    - **`Aspect="AspectFill"`**: Ensures that the image fills its container without distortion.
+
+- **`Button` Properties**:
+  - **`CornerRadius="20"`**: Creates rounded edges for the button, enhancing the UI's aesthetics.
+  - **`TextColor="#101216"`**: Provides contrast to the button's background, ensuring legibility.
+
+### Analysis of ImageGeneratorView.xaml.cs
+
+The **`ImageGeneratorView.xaml.cs`** file is the code-behind for `ImageGeneratorView.xaml`. It handles the behavior of the user interface, including event handling and updating UI elements.
+
+```csharp
+namespace DaluiApp.Views;
+
+public partial class ImageGeneratorView : ContentPage
+{
+    Stopwatch watch = new Stopwatch();
+    public ImageGeneratorView()
+    {
+        InitializeComponent();
+    }
+
+    protected override async void OnAppearing()
+    {
+        await Task.Delay(TimeSpan.FromSeconds(2));
+        watch.Start();
+        
+        var cts = new CancellationTokenSource();
+
+        using (var timer = new PeriodicTimer(TimeSpan.FromSeconds(1)))
+        {
+            try
+            {
+                var counter = 0;
+                while (await timer.WaitForNextTickAsync(cts.Token))
+                {
+                    if (counter == 5)
+                    {
+                        cts.Cancel();
+                    }
+
+                    var seconds = watch.Elapsed.Seconds;
+                    lblTimer.Text = seconds.ToString();
+                    counter++;
+                }
+            }
+            catch (TaskCanceledException e)
+            {
+                await StopGeneration();
+            }
+        }
+    }
+    
+    private async Task StopGeneration()
+    {
+        watch.Stop();
+        await Task.Delay(2000);
+        
+        lottie.IsAnimationEnabled = false;
+        lottie.IsVisible = false;
+        imageBorder.IsVisible = true;
+        imageAnimation.IsVisible = true;
+        
+        await Task.WhenAny(
+            imageAnimation.ScaleTo(1.1, 1000),
+            imageAnimation.FadeTo(0, 1000),
+            borderTime.ScaleTo(1, 1000),
+            borderTime.FadeTo(1, 1000)
+        );
+
+        await borderTime.FadeTo(0, 300);
+        await btnFinish.ScaleTo(1, 1000);
+    }
+}
+```
+
+#### Key Components
+- **`Stopwatch`**: Used to track the time taken for the image generation process.
+  - **`watch.Start()`** and **`watch.Stop()`** are used to control when the timer begins and ends.
+
+- **`OnAppearing` Method**: This method is called when the view appears. It contains an async operation that uses a timer to update the elapsed seconds on the UI.
+  - The `PeriodicTimer` is used to update `lblTimer` every second, displaying how much time has passed.
+  - When a condition (such as reaching 5 seconds) is met, the generation is stopped by calling **`StopGeneration()`**.
+
+- **`StopGeneration` Method**: Handles the finalization of the generation process by stopping the animation and making certain UI elements visible or hidden, creating a smooth user experience.
+  - **`await btnFinish.ScaleTo(1, 1000)`** animates the `Finish` button to enhance the UI transition.
+
+### Summary and Usage
+
+| View Element      | Purpose                           | XAML Example                       | Code-Behind Interaction                       |
+|-------------------|-----------------------------------|------------------------------------|-----------------------------------------------|
+| `Grid`            | Layout elements in rows           | `<Grid RowDefinitions=".2*,.6*,.2*">` | Defines layout for title, image, and button. |
+| `VerticalStackLayout` | Stack elements vertically      | `<VerticalStackLayout>`            | No direct interaction needed in code-behind.  |
+| `Label`           | Display text                      | `<Label Text="Picture generated" ...>` | Updated via `lblTimer.Text`.                 |
+| `Border`          | Frame elements with rounded edges | `<Border StrokeShape="RoundRectangle ...>` | Visibility controlled by `StopGeneration()`. |
+| `Image`           | Display images                    | `<Image x:Name="imageAnimation" ...>` | Visibility and animations controlled by code. |
+| `Button`          | User interaction                  | `<Button x:Name="btnFinish" ...>`  | Animated during `StopGeneration()`.           |
+
+The `ImageGeneratorView` is a dynamic user interface for visualizing image generation and interaction. It includes animations and timers to create a visually engaging experience for the user, using a combination of XAML for the layout and C# for interactivity.
+
+### Recommended References
+1. [Introduction to XAML - Microsoft Documentation](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/xaml/?view=netdesktop-7.0)
+2. [Grid Layout in XAML - Microsoft Documentation](https://learn.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/grid)
