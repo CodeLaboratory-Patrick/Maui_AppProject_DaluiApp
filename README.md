@@ -54,7 +54,7 @@ Required Tools:
 - SkiaSharp.Extended.UI.Maui
 ```
 ---
-# ⭐️ Analysis of MVVM Model Analysis: ArtStyle, GeneratedImage, Profile
+## ⭐️ Analysis of MVVM Model Analysis: ArtStyle, GeneratedImage, Profile
 
 In this analysis, we will explore the three provided model classes from a project, named `ArtStyle`, `GeneratedImage`, and `Profile`. These files are part of the **Models** layer in an MVVM (Model-View-ViewModel) architecture. I'll describe their purpose, characteristics, potential use cases, and provide some practical examples. We'll also discuss the scenarios in which these classes are used within the context of the MVVM pattern.
 
@@ -152,7 +152,7 @@ These models align with MVVM principles, allowing for separation of data from th
 2. [Model-View-ViewModel (MVVM) Explained](https://builtin.com/software-engineering-perspectives/mvvm-architecture)
 
 ---
-# ⭐️  MVVM View Analysis: DashboardView.xaml and DashboardView.xaml.cs
+## ⭐️  MVVM View Analysis: DashboardView.xaml and DashboardView.xaml.cs
 
 In this analysis, we explore two files that belong to the **View** layer in an MVVM architecture: `DashboardView.xaml` and `DashboardView.xaml.cs`. These files are crucial in providing the user interface (UI) that interacts directly with the ViewModel. I'll cover the purpose, properties, and detailed examples from each file, as well as when and how these files are used in a proper MVVM application.
 
@@ -303,7 +303,7 @@ The **View** is crucial for user interaction. It defines what the users see and 
 3. [ObservableCollection<T> - Microsoft Documentation](https://learn.microsoft.com/en-us/dotnet/fundamentals/runtime-libraries/system-collections-objectmodel-observablecollection%7Bt%7D)
 
 ---
-# ⭐️  MVVM View Analysis: GenerationOptionsView.xaml and GenerationOptionsView.xaml.cs
+## ⭐️  MVVM View Analysis: GenerationOptionsView.xaml and GenerationOptionsView.xaml.cs
 
 In this analysis, we will explore the `GenerationOptionsView.xaml` and `GenerationOptionsView.xaml.cs` files that represent the **View** layer in an MVVM architecture. The view, in this case, is built to provide an interface for selecting generation options and picture styles. This document will go through the purpose, properties, and examples of the code found in these files, including a detailed explanation of the various **XAML** properties used.
 
@@ -461,7 +461,7 @@ The `GenerationOptionsView` is a rich UI page for selecting image generation opt
 3. [Grid Layout in XAML - Microsoft Documentation](https://learn.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/grid)
 
 ---
-# ⭐️ MVVM View Analysis: ImageGeneratorView.xaml and ImageGeneratorView.xaml.cs
+## ⭐️ MVVM View Analysis: ImageGeneratorView.xaml and ImageGeneratorView.xaml.cs
 
 In this analysis, we will look into the **`ImageGeneratorView.xaml`** and **`ImageGeneratorView.xaml.cs`** files, both of which belong to the **View** layer of an MVVM application. This View seems to be focused on generating images, including UI elements for timers and completion animations. We will go through the purpose, characteristics, and properties of these files, and provide examples of how they are implemented.
 
@@ -661,7 +661,7 @@ The `ImageGeneratorView` is a dynamic user interface for visualizing image gener
 2. [Grid Layout in XAML - Microsoft Documentation](https://learn.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/grid)
 
 ---
-# ⭐️  # Understanding Async, Async Task, Await Task, and Await in .NET MAUI
+## ⭐️  # Understanding Async, Async Task, Await Task, and Await in .NET MAUI
 
 In .NET MAUI (Multi-platform App UI), asynchronous programming is crucial for building responsive, efficient, and fluid applications. Asynchronous programming helps to avoid blocking the UI thread, thereby ensuring that your application remains responsive, even when executing potentially time-consuming operations like file I/O, network requests, or heavy computations.
 
